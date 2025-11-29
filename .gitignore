@@ -1,0 +1,41 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build
+bin/
+tmp/
+dist/
+*.out
+
+# Air tmp build
+tmp/*
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.development
+.env.production
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node / React (jika ada frontend terpisah)
+node_modules/
+build/
+dist/
+
+# Others
+coverage/
