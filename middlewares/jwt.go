@@ -3,7 +3,7 @@ package middleware
 import (
 	"os"
 	"time"
-
+	"strings"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -22,11 +22,18 @@ func GenerateToken(userID uint, role string) (string, error) {
 
 func Protected(c *fiber.Ctx) error {
 	secret := os.Getenv("JWT_SECRET")
-	tokenString := c.Get("Authorization")
+	authHeader := c.Get("Authorization")
 
-	if tokenString == "" {
+	if authHeader == "" {
 		return c.SendStatus(fiber.StatusUnauthorized)
 	}
+
+	parts := strings.Split(authHeader, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		return c.SendStatus(fiber.StatusUnauthorized)
+	}
+
+	tokenString := parts[1]
 
 	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
@@ -42,6 +49,7 @@ func Protected(c *fiber.Ctx) error {
 
 	return c.Next()
 }
+
 
 func OnlyAdmin(c *fiber.Ctx) error {
 	role := c.Locals("role")

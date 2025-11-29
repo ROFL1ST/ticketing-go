@@ -22,8 +22,9 @@ func main() {
 	config.Connect()
 
 	config.DB.AutoMigrate(&models.User{}, &models.Ticket{}, &models.Comment{})
+	config.SeedAdmin()
 
 	routes.RegisterRoutes(app)
 
-	app.Listen(":" + os.Getenv("APP_PORT"))
+	app.Listen(":" + os.Getenv("PORT"))
 }
