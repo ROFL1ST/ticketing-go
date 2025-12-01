@@ -19,6 +19,7 @@ func RegisterRoutes(app *fiber.App) {
 	user.Post("/tickets", controllers.CreateTicket)
 	user.Get("/tickets/:id", controllers.GetTicketById)
 	user.Post("/tickets/:id/comment", controllers.AddComment)
+	user.Delete("/tickets/comment/:id", controllers.DeleteComment)
 
 	// Admin routes
 	admin := api.Group("/admin", middleware.Protected, middleware.OnlyAdmin)

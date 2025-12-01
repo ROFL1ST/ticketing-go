@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"strconv"
 	"ticketing-backend/config"
 	"ticketing-backend/models"
 	"ticketing-backend/utils"
-	"strconv"
 )
 
 func GetTicketsByUser(c *fiber.Ctx) error {
@@ -78,6 +78,22 @@ func AddComment(c *fiber.Ctx) error {
 	}
 
 	return utils.Created(c, "Comment added", comment)
+}
+
+func DeleteComment(c *fiber.Ctx) error {
+	userID := c.Locals("userID")
+	id := c.Params("id")
+	var comment models.Comment
+
+	if err := config.DB.
+		Where("id = ? AND user_id = ?", id, userID).
+		First(&comment).Error; err != nil {
+		return utils.Error(c, 404, "Comment not found")
+	}
+	if err := config.DB.Delete(&comment).Error; err != nil {
+		return utils.Error(c, 500, "Failed to delete comment")
+	}
+	return utils.Success(c, "Comment deleted", nil)
 }
 
 func parseID(id string) uint {
