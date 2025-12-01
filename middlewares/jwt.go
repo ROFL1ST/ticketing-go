@@ -2,8 +2,10 @@ package middleware
 
 import (
 	"os"
-	"time"
 	"strings"
+	"ticketing-backend/utils"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -25,12 +27,12 @@ func Protected(c *fiber.Ctx) error {
 	authHeader := c.Get("Authorization")
 
 	if authHeader == "" {
-		return c.SendStatus(fiber.StatusUnauthorized)
+		return utils.Error(c, fiber.StatusUnauthorized, "Missing or malformed JWT")
 	}
 
 	parts := strings.Split(authHeader, " ")
 	if len(parts) != 2 || parts[0] != "Bearer" {
-		return c.SendStatus(fiber.StatusUnauthorized)
+		return utils.Error(c, fiber.StatusUnauthorized, "Missing or malformed JWT")
 	}
 
 	tokenString := parts[1]
@@ -40,7 +42,7 @@ func Protected(c *fiber.Ctx) error {
 	})
 
 	if err != nil || !token.Valid {
-		return c.SendStatus(fiber.StatusUnauthorized)
+		return utils.Error(c, fiber.StatusUnauthorized, "Invalid or expired JWT")
 	}
 
 	claims := token.Claims.(jwt.MapClaims)
