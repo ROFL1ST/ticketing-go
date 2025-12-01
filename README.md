@@ -27,12 +27,13 @@ ticketing-backend/
 ├── .env.example
 │
 ├── config/
+│   ├── seed.go
 │   └── database.go
 │
 ├── controllers/
-│   ├── auth_controller.go
-│   ├── user_ticket_controller.go
-│   └── admin_ticket_controller.go
+│   ├── authController.go
+│   ├── userTicketController.go
+│   └── adminTicketController.go
 │
 ├── middleware/
 │   └── jwt.go
@@ -41,6 +42,9 @@ ticketing-backend/
 │   ├── user.go
 │   ├── ticket.go
 │   └── comment.go
+│
+├── utils/
+│   └── response.go
 │
 └── routes/
     └── routes.go
@@ -132,6 +136,7 @@ Sistem mendukung 2 role:
 | POST   | `/api/user/tickets`             | Membuat tiket         |
 | GET    | `/api/user/tickets/:id`         | Detail tiket user     |
 | POST   | `/api/user/tickets/:id/comment` | Menambah komentar     |
+| DELETE | `/api/user/tickets/comment/:id` | Menghapus komentar    |
 
 ---
 
