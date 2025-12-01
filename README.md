@@ -53,7 +53,7 @@ ticketing-backend/
 ### 1. Clone Repo
 
 ```sh
-git clone https://github.com/yourusername/ticketing-backend.git
+git clone https://github.com/ROFL1ST/ticketing-backend.git
 cd ticketing-backend
 ```
 
