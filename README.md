@@ -58,7 +58,7 @@ ticketing-backend/
 
 ```sh
 git clone https://github.com/ROFL1ST/ticketing-go.git
-cd ticketing-backend
+cd ticketing-go
 ```
 
 ### 2. Install Dependencies
