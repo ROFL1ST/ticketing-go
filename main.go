@@ -11,6 +11,7 @@ import (
 	"ticketing-backend/config"
 	"ticketing-backend/models"
 	"ticketing-backend/routes"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
 func main() {
@@ -26,6 +27,12 @@ func main() {
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		ExposeHeaders:    "Content-Length",
 		AllowCredentials: true,
+	}))
+
+	app.Use(logger.New(logger.Config{
+		Format:     "[${time}] ${status} - ${method} ${path}\n",
+		TimeFormat: "02-Jan-2006 15:04:05",
+		TimeZone:   "Asia/Jakarta",
 	}))
 
 	config.Connect()	

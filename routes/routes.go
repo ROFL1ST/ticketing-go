@@ -9,7 +9,6 @@ import (
 func RegisterRoutes(app *fiber.App) {
 	api := app.Group("/api")
 
-	// Public (register, login)
 	api.Post("/register", controllers.Register)
 	api.Post("/login", controllers.Login)
 
